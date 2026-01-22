@@ -24,21 +24,21 @@ class HomeScreen extends StatelessWidget {
   }
 
   Widget _buildTabletLayout() {
-    return Row(
+    return const Row(
       children: [
         // Left: List
-        const Expanded(
+        Expanded(
           flex: 4,
           child: RecordingListScreen(),
         ),
-        const VerticalDivider(width: 1),
+        VerticalDivider(width: 1),
         // Right: Controls
         Expanded(
           flex: 6,
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
+              children: [
                 TimerDisplay(),
                 SizedBox(height: 40),
                 DurationSelector(),
@@ -53,14 +53,14 @@ class HomeScreen extends StatelessWidget {
   }
 
   Widget _buildPhoneLayout() {
-    return Column(
+    return const Column(
       children: [
         // Top: Controls
         Expanded(
           flex: 5,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
+            children: [
               Spacer(),
               TimerDisplay(),
               SizedBox(height: 20),
@@ -71,9 +71,9 @@ class HomeScreen extends StatelessWidget {
             ],
           ),
         ),
-        const Divider(height: 1),
+        Divider(height: 1),
         // Bottom: List
-        const Expanded(
+        Expanded(
           flex: 4,
           child: RecordingListScreen(),
         ),

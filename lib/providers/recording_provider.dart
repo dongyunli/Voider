@@ -231,7 +231,9 @@ class RecordingProvider extends ChangeNotifier {
 
       notifyListeners();
     } catch (e) {
-      print("Error playing recording: $e");
+      if (kDebugMode) {
+        print("Error playing recording: $e");
+      }
       _currentlyPlayingPath = null;
       for (var i = 0; i < _recordings.length; i++) {
         if (_recordings[i].path == path) {
@@ -260,7 +262,9 @@ class RecordingProvider extends ChangeNotifier {
       
       notifyListeners();
     } catch (e) {
-      print("Error stopping playback: $e");
+      if (kDebugMode) {
+        print("Error stopping playback: $e");
+      }
       _player = null;
       
       // 恢复所有播放状态

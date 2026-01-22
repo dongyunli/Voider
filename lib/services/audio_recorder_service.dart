@@ -1,5 +1,4 @@
 import 'package:flutter_sound/public/flutter_sound_recorder.dart';
-import 'package:flutter_sound_platform_interface/flutter_sound_platform_interface.dart';
 import 'package:logger/logger.dart';
 
 class AudioRecorderService {
