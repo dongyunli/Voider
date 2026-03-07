@@ -9,15 +9,20 @@ class TimerDisplay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<RecordingProvider>(
-      builder: (context, provider, child) {
+    final provider = context.read<RecordingProvider>();
+    final selectedDurationLimit = provider.selectedDurationLimit;
+    final elapsedSecondsNotifier = provider.elapsedSecondsNotifier;
+    final isCountdown = selectedDurationLimit != AppConstants.unlimitedDuration;
+
+    return ValueListenableBuilder<int>(
+      valueListenable: elapsedSecondsNotifier,
+      builder: (context, elapsedSeconds, child) {
         // 如果设定了限时，显示倒计时，否则显示正计时
-        int secondsToShow = provider.elapsedSeconds;
-        bool isCountdown = provider.selectedDurationLimit != AppConstants.unlimitedDuration;
+        int secondsToShow = elapsedSeconds;
         
         if (isCountdown) {
-          int totalLimitSeconds = provider.selectedDurationLimit * 60;
-          secondsToShow = totalLimitSeconds - provider.elapsedSeconds;
+          int totalLimitSeconds = selectedDurationLimit * 60;
+          secondsToShow = totalLimitSeconds - elapsedSeconds;
           if (secondsToShow < 0) secondsToShow = 0;
         }
 

@@ -6,7 +6,13 @@ class AudioRecorderService {
   final Logger _logger = Logger();
 
   Future<void> init() async {
-    await _recorder.openRecorder();
+    try {
+      await _recorder.openRecorder();
+      _logger.i("AudioRecorder initialized successfully");
+    } catch (e) {
+      _logger.e("Error initializing recorder: $e");
+      rethrow;
+    }
   }
 
   Future<void> start(String path) async {
@@ -22,22 +28,51 @@ class AudioRecorderService {
   }
 
   Future<void> stop() async {
-    await _recorder.stopRecorder();
+    try {
+      await _recorder.stopRecorder();
+      _logger.i("Recorder stopped successfully");
+    } catch (e) {
+      _logger.e("Error stopping recorder: $e");
+      rethrow;
+    }
   }
 
   Future<void> pause() async {
-    await _recorder.pauseRecorder();
+    try {
+      await _recorder.pauseRecorder();
+      _logger.i("Recorder paused successfully");
+    } catch (e) {
+      _logger.e("Error pausing recorder: $e");
+      rethrow;
+    }
   }
 
   Future<void> resume() async {
-    await _recorder.resumeRecorder();
+    try {
+      await _recorder.resumeRecorder();
+      _logger.i("Recorder resumed successfully");
+    } catch (e) {
+      _logger.e("Error resuming recorder: $e");
+      rethrow;
+    }
   }
 
   Future<void> dispose() async {
-    await _recorder.closeRecorder();
+    try {
+      await _recorder.closeRecorder();
+      _logger.i("Recorder closed successfully");
+    } catch (e) {
+      _logger.e("Error closing recorder: $e");
+      rethrow;
+    }
   }
 
   Future<bool> isRecording() async {
-    return _recorder.isRecording;
+    try {
+      return _recorder.isRecording;
+    } catch (e) {
+      _logger.e("Error checking recording state: $e");
+      return false;
+    }
   }
 }

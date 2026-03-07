@@ -8,22 +8,30 @@ A cross-platform local voice recording app built with Flutter.
 ![License](https://img.shields.io/badge/License-MIT-green)
 
 ## Features
-
+ 
 - ✅ **Voice Recording** - Record audio with customizable duration limits
 - ✅ **Recording Management** - View, play, and manage all recordings
 - ✅ **Playback with Time Display** - Real-time playback position tracking
-- ✅ **File Sharing** - Share recordings directly from the app
+- ✅ **File Sharing** - Share recordings directly from app
 - ✅ **Duration Limits** - Set custom recording time limits (1min, 5min, 10min, 30min, unlimited)
 - ✅ **Pause/Resume** - Pause and resume recording sessions
 - ✅ **Local Storage** - All recordings stored locally on device
 - ✅ **Cross-Platform** - Works on Android, iOS, and Windows
+- ✅ **Loading States** - Visual feedback during initial app load and operations
+- ✅ **Error Handling** - Comprehensive error handling with Logger throughout all services
+- ✅ **User-Friendly Messages** - Clear UI feedback for loading states and edge cases
+- ✅ **Storage Space Check** - Prevents recording when insufficient space available
+- ✅ **Playback State Management** - Separated playback state from data model for cleaner architecture
+- ✅ **Performance Optimized** - ValueNotifier pattern for timer updates, localized rebuilds
 
 ## Tech Stack
-
+ 
 - **Framework**: Flutter 3.38.7 (Dart 3.10.7)
-- **State Management**: Provider
+- **State Management**: Provider with ValueNotifier optimization
 - **Audio Processing**: Flutter Sound 9.30.0
 - **Platform Support**: Android 21+, iOS 12+, Windows 10+
+- **Testing**: Flutter Test with mocktail for unit tests, integration tests
+- **Logging**: Logger for comprehensive error tracking
 
 ## Dependencies
 
@@ -111,11 +119,11 @@ flutter build windows --release
 ```
 lib/
 ├── config/           # Configuration constants
-├── models/          # Data models
-├── providers/       # State management
+├── models/          # Data models (immutable)
+├── providers/       # State management (Provider with ValueNotifier)
 ├── screens/         # UI screens
 ├── services/        # Business logic services
-├── utils/          # Utility functions
+├── utils/          # Utility functions and helpers
 └── widgets/        # Reusable UI components
 ```
 
@@ -129,7 +137,23 @@ lib/
 - **HomeScreen** - Main recording interface
 
 ## Development
-
+ 
+### Code Quality Improvements
+ 
+- ✅ **Error Handling**: All service methods include try-catch with Logger
+- ✅ **Resource Management**: Proper cleanup in dispose() with error handling
+- ✅ **Input Validation**: Duration limits and file path validation
+- ✅ **State Management**: PlaybackState separated from data model
+- ✅ **Performance**: ValueNotifier pattern for timer updates
+- ✅ **UI Feedback**: Loading states and user-friendly messages
+- ✅ **Security**: Path validation to prevent unauthorized access
+ 
+### Architecture
+ 
+- **Service Layer**: Stateless services, Provider holds state
+- **Models Layer**: Immutable data models with copyWith()
+- **State Management**: Provider with ValueNotifier for optimized rebuilds
+- **Separation**: Clear separation between concerns (UI/Logic/Data)
 ### Code Style
 
 The project follows the guidelines in [AGENTS.md](AGENTS.md):
@@ -141,11 +165,30 @@ The project follows the guidelines in [AGENTS.md](AGENTS.md):
 - Type-safe: No `as any` or `@ts-ignore`
 - Comments: Chinese for business logic, English for technical comments
 
-### Running Tests
-
+### Testing
+ 
 ```bash
+# Run all tests
 flutter test
+
+# Run unit tests
+flutter test test/unit_test.dart
+
+# Run widget tests
+flutter test test/widget/
+
+# Run integration tests
+flutter test test/integration/
+
+# Run specific test
+flutter test test/widget/timer_display_test.dart
 ```
+
+**Test Coverage**:
+- ✅ Unit tests for Service layer (AudioRecorderService, FileManagerService, PermissionService)
+- ✅ Widget tests for all major components (TimerDisplay, RecordingControls, DurationSelector)
+- ✅ Integration tests for recording and playback flows
+- ✅ Edge case tests for concurrent operations and error scenarios
 
 ### Code Analysis
 
